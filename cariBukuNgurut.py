@@ -24,7 +24,7 @@ def binary_search_books_by_year(books, target_year):
     """
     left, right = 0, len(books) - 1
     while left <= right:
-        mid = left + (right - left) // 2
+        mid = left + (right - left) // 2  # Perbaikan pada pembagian
         # Membandingkan tahun terbit buku di tengah dengan target
         if books[mid]['year'] == target_year:
             return mid
@@ -71,27 +71,34 @@ def search_book():
     else:
         print("\nMetode pencarian tidak valid. Silakan pilih antara 'judul' atau 'tahun'.")
 
-def main():
+def display_books():
+    if not library_books:
+        print("Belum ada buku yang ditambahkan.")
+    else:
+        for book in library_books:
+            print(f"Judul: {book['title']}, Pengarang: {book['author']}, Tahun: {book['year']}")
+
+def main_menu():
     while True:
-        print("\nDaftar buku saat ini:")
-        if not library_books:
-            print("Belum ada buku yang ditambahkan.")
-        else:
-            for book in library_books:
-                print(f"Judul: {book['title']}, Pengarang: {book['author']}, Tahun: {book['year']}")
-        add_more = input("\nApakah Anda ingin menambahkan buku? (ya/tidak): ").strip().lower()
-        if add_more == 'ya':
+        print("\nMenu Utama:")
+        print("1. Tambah Buku")
+        print("2. Tampilkan Semua Buku")
+        print("3. Cari Buku")
+        print("4. Keluar")
+        choice = input("Pilih opsi (1/2/3/4): ").strip()
+        if choice == '1':
             add_books()
-        else:
+        elif choice == '2':
+            display_books()
+        elif choice == '3':
             if library_books:
-                search_more = input("Apakah Anda ingin mencari buku? (ya/tidak): ").strip().lower()
-                if search_more == 'ya':
-                    search_book()
-                else:
-                    break
+                search_book()
             else:
                 print("Tidak ada buku untuk dicari.")
-                break
-    print("\nProgram selesai.")
+        elif choice == '4':
+            print("Terima kasih! Program selesai.")
+            break
+        else:
+            print("Pilihan tidak valid. Silakan pilih opsi yang benar.")
 
-main()
+main_menu()
